@@ -62,7 +62,7 @@ app.post('/webhook', asyncMiddleware(async (req, res) => {
                 console.log(`Reply Token: ${replyToken}`);
                 const majors = await getMajors();
                 const results = majors.filter(x => x.major.toLowerCase() == text.toLowerCase());
-                let resText = results.length > 0 ? results.join(",") : 'Not found!';
+                let resText = results.length > 0 ? results.join(",") : `"${text}", Not found!`;
                 const url = 'https://api.line.me/v2/bot/message/reply';
                 await axios.post(url, {
                   replyToken: replyToken,
