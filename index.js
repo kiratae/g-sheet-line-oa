@@ -4,6 +4,7 @@ import { google } from 'googleapis';
 import 'dotenv/config'
 
 const app = express();
+app.use(express.json());
 const port = process.env.PORT || 3000;
 const googleApiKey = process.env.GOOGLE_API_KEY;
 const channelSecret = process.env.LINE_CHANNEL_SECRET; // Line Channel secret string
@@ -44,14 +45,16 @@ app.post('/webhook', (req, res) => {
     const rcvSignature = req.header("x-line-signature");
     if(rcvSignature != null && rcvSignature != '' && rcvSignature != ' '){
         const body = req.body;
-        const signature = createHmac("SHA256", channelSecret).update(body).digest("base64");
+        const bodyString = JSON.stringify(body);
+        const signature = createHmac("SHA256", channelSecret).update(bodyString).digest("base64");
         if (rcvSignature == signature) {
             console.log(body);
+            res.status(200).send();
         }
     }
-    res.status(200).send();
+    res.status(401).send();
 })
   
 app.listen(port, () => {
-    console.log(`Example app listening on port ${port}`)
+    console.log(`App listening on port ${port}`)
 })
