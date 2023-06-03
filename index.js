@@ -4,7 +4,7 @@ import { google } from 'googleapis';
 import 'dotenv/config'
 
 const app = express();
-const port = 3000;
+const port = process.env.PORT || 3000;
 const googleApiKey = process.env.GOOGLE_API_KEY;
 const channelSecret = process.env.LINE_CHANNEL_SECRET; // Line Channel secret string
 
