@@ -46,11 +46,10 @@ app.post('/webhook', (req, res) => {
         const body = req.body;
         const signature = createHmac("SHA256", channelSecret).update(body).digest("base64");
         if (rcvSignature == signature) {
-            res.status(200).send();
             console.log(body);
         }
     }
-    res.status(401).send();
+    res.status(200).send();
 })
   
 app.listen(port, () => {
