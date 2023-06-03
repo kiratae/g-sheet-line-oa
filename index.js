@@ -55,9 +55,9 @@ app.post('/webhook', asyncMiddleware(async (req, res) => {
             const event = body.events[0];
             if (event && event.type == 'message') {
               const message = event.message;
+              const replyToken = event.replyToken;
               if (message && message.type == 'text') {
                 const text = message.text;
-                const replyToken = message.replyToken;
                 console.log(`Receive message: ${text}`);
                 console.log(`Reply Token: ${replyToken}`);
                 const majors = await getMajors();
