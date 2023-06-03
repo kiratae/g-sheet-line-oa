@@ -59,6 +59,7 @@ app.post('/webhook', asyncMiddleware(async (req, res) => {
                 const text = message.text;
                 const replyToken = message.replyToken;
                 console.log(`Receive message: ${text}`);
+                console.log(`Reply Token: ${replyToken}`);
                 const majors = await getMajors();
                 const results = majors.filter(x => x.major.toLowerCase() == text.toLowerCase());
                 let resText = results.length > 0 ? results.join(",") : 'Not found!';
