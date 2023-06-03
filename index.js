@@ -9,6 +9,7 @@ app.use(express.json());
 const port = process.env.PORT || 3000;
 const googleApiKey = process.env.GOOGLE_API_KEY;
 const channelSecret = process.env.LINE_CHANNEL_SECRET; // Line Channel secret string
+const channelAccessToken = process.env.LINE_ACCESS_TOKEN;
 
 const asyncMiddleware = fn =>
   (req, res, next) => {
@@ -68,7 +69,7 @@ app.post('/webhook', asyncMiddleware(async (req, res) => {
                 }, {
                   headers: {
                     'Content-Type': 'application/json',
-                    'Authorization': `Bearer ${channelSecret}`
+                    'Authorization': `Bearer ${channelAccessToken}`
                   }
                 });
               }
